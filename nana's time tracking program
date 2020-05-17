@@ -1,0 +1,29 @@
+import datetime
+import csv
+print ("Are you commencing the work? Yes/No: ")
+DatePrompt: str = input()
+if DatePrompt == 'yes' :
+        StartTime = datetime.datetime.now()
+        print("Your commencing time is:")
+        print (StartTime)
+        print("Have you closed for the day? Yes/No: ")
+Answer: str = input()
+if Answer == 'yes':
+                CloseTime = datetime.datetime.now()
+                print("You closed at: ")
+                print(CloseTime)
+                diff_time = CloseTime - StartTime
+                hour = diff_time.total_seconds() / 3600.0
+                print('You worked for :', hour,'Hours')
+                AmountPaid = hour * 5
+                print('You will receive approximately:', "%.2f"%AmountPaid, 'USD')
+                st = StartTime.strftime('%m/%d/%Y')
+                ct = CloseTime.strftime('%m/%d/%Y')
+                ap = str(AmountPaid)
+else: print("Goodbye")
+
+myData = [[StartTime, CloseTime, hour, AmountPaid]]
+myFile = open('NanaFile.csv', 'a')
+with myFile:
+    writer = csv.writer(myFile)
+    writer.writerows(myData)
